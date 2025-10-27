@@ -4,7 +4,7 @@
     "start": "node ./bin/code-stats.js"
   },
   "name": "cod-stat",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "CLI tool to count lines of code, comments, and categorize by language.",
   "type": "module",
   "bin": {

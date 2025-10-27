@@ -24,7 +24,7 @@
 ```bash
 # Clone repository
 git clone https://github.com/Eyob-smax/cod-stat.git
-cd code-stats
+cd cod-stat
 
 # Install dependencies
 npm install
@@ -35,56 +35,56 @@ npm link
 
 ## Basic scan in current directory
 
-code-stats .
+cod-stat .
 
 ## Scan and count comment lines
 
-code-stats . -c
+cod-stat . -c
 
 ## Count functions/methods
 
-code-stats . -f
+cod-stat . -f
 
 ## Show average function length
 
-code-stats . -a
+cod-stat . -a
 
 ## Filter by specific language extensions
 
-code-stats . -l js ts py
+cod-stat . -l js ts py
 
 ## Only scan code files
 
-code-stats . --only-code
+cod-stat . --only-code
 
 ## Only scan config/markup files
 
-code-stats . --only-config
+cod-stat . --only-config
 
 ## Show top 10 largest files by code lines
 
-code-stats . --largest 10
+cod-stat . --largest 10
 
 ## Save results in JSON
 
-code-stats . --json
+cod-stat . --json
 
 # Ignore directories
 
-code-stats . --ignore node_modules dist
+cod-stat . --ignore node_modules dist
 
-| Option                           | Alias | Description                             |
-| -------------------------------- | ----- | --------------------------------------- |
-| `[directory]`                    | -     | Directory to scan (default: `.`)        |
-| `-c, --count-comments`           | -     | Count comment lines                     |
-| `-f, --function-count`           | -     | Count number of functions/methods       |
-| `-a, --avg-func-length`          | -     | Show average function length in lines   |
-| `-l, --language <extensions...>` | -     | Only scan certain languages/extensions  |
-| `--ignore <dirs...>`             | -     | Directories to ignore                   |
-| `--only-code`                    | -     | Only scan code files                    |
-| `--only-config`                  | -     | Only scan config/markup files           |
-| `--largest <n>`                  | -     | Show top N largest files (default: 5)   |
-| `--json`                         | -     | Output JSON to `code-stats/report.json` |
+| Option                           | Alias | Description                            |
+| -------------------------------- | ----- | -------------------------------------- |
+| `[directory]`                    | -     | Directory to scan (default: `.`)       |
+| `-c, --count-comments`           | -     | Count comment lines                    |
+| `-f, --function-count`           | -     | Count number of functions/methods      |
+| `-a, --avg-func-length`          | -     | Show average function length in lines  |
+| `-l, --language <extensions...>` | -     | Only scan certain languages/extensions |
+| `--ignore <dirs...>`             | -     | Directories to ignore                  |
+| `--only-code`                    | -     | Only scan code files                   |
+| `--only-config`                  | -     | Only scan config/markup files          |
+| `--largest <n>`                  | -     | Show top N largest files (default: 5)  |
+| `--json`                         | -     | Output JSON to `cod-stat/report.json`  |
 
 🔍 Supported Languages & File Types
 Code Files

@@ -3,6 +3,7 @@ import { program } from "commander";
 import chalk from "chalk";
 import path from "path";
 import cliProgress from "cli-progress";
+import Table from "cli-table3";
 import { analyzeDirectory } from "../lib/fileAnalyzer.js";
 import { saveReport } from "../lib/report.js";
 
@@ -29,15 +30,17 @@ program
       },
       cliProgress.Presets.shades_classic
     );
+
     progressBar.start(stats.length, 0);
     for (let i = 0; i < stats.length; i++) progressBar.update(i + 1);
     progressBar.stop();
 
+    // Handle JSON flag
     if (options.json) {
       saveReport(stats, directory);
       console.log(
         chalk.green(
-          `JSON saved to ${path.join(
+          `✅ JSON report saved to ${path.join(
             process.cwd(),
             "code-stats",
             "report.json"
@@ -48,37 +51,71 @@ program
     }
 
     if (stats.length === 0) {
-      console.log(chalk.yellow("No files found matching criteria."));
+      console.log(chalk.yellow("⚠️ No files found matching criteria."));
       return;
     }
 
-    // Largest files
+    // 📁 Largest Files Section
     if (options.largest) {
       const largestFiles = [...stats]
         .sort((a, b) => b.codeLines - a.codeLines)
         .slice(0, options.largest);
-      console.log(chalk.bold.green(`\nTop ${options.largest} largest files:`));
-      largestFiles.forEach((f, i) =>
-        console.log(
-          `${i + 1}. ${f.file} | Code lines: ${chalk.blue(f.codeLines)}`
-        )
+
+      console.log(
+        chalk.bold.green(`\n📁 Top ${options.largest} Largest Files`)
       );
+      const largestTable = new Table({
+        head: [chalk.cyan("#"), chalk.cyan("File"), chalk.cyan("Code Lines")],
+        style: { head: [], border: [] },
+        wordWrap: true,
+      });
+
+      largestFiles.forEach((f, i) =>
+        largestTable.push([
+          chalk.white(i + 1),
+          chalk.gray(path.relative(process.cwd(), f.file)),
+          chalk.blue(f.codeLines),
+        ])
+      );
+
+      console.log(largestTable.toString());
     }
 
-    // Table
-    const tableData = stats.slice(0, 20).map((f) => ({
-      File: path.relative(process.cwd(), f.file),
-      Lang: f.lang,
-      Lines: f.lines,
-      Code: f.codeLines,
-      Comments: !options.countComments ? "Disabled" : f.comments,
-      Complexity: f.complexity,
-      Functions: f.functions ?? "-",
-      AvgFuncLength: f.avgFuncLength ?? "-",
-    }));
-    console.table(tableData);
+    // 📊 Main File Table
+    console.log(chalk.bold.green("\n📊 File Analysis Summary"));
+    const fileTable = new Table({
+      head: [
+        chalk.cyan("File"),
+        chalk.cyan("Lang"),
+        chalk.cyan("Lines"),
+        chalk.cyan("Code"),
+        chalk.cyan("Comments"),
+        chalk.cyan("Complexity"),
+        chalk.cyan("Functions"),
+        chalk.cyan("Avg Func Len"),
+      ],
+      style: { head: [], border: [] },
+      wordWrap: true,
+    });
 
-    // Summary
+    stats
+      .slice(0, 20)
+      .forEach((f) =>
+        fileTable.push([
+          chalk.gray(path.relative(process.cwd(), f.file)),
+          chalk.white(f.lang),
+          chalk.white(f.lines),
+          chalk.cyan(f.codeLines),
+          options.countComments ? chalk.magenta(f.comments) : chalk.gray("off"),
+          chalk.yellow(f.complexity),
+          f.functions ?? "-",
+          f.avgFuncLength ?? "-",
+        ])
+      );
+
+    console.log(fileTable.toString());
+
+    // 📈 Summary Section
     const totalLines = stats.reduce((a, b) => a + b.lines, 0);
     const totalCode = stats.reduce((a, b) => a + b.codeLines, 0);
     const totalComments = stats.reduce((a, b) => a + b.comments, 0);
@@ -89,13 +126,26 @@ program
       stats.reduce((a, b) => a + b.complexity, 0) / stats.length
     ).toFixed(1);
 
-    console.log(chalk.bold.green("\n=== Summary ==="));
-    console.log(chalk.blue(`Total Lines: ${totalLines}`));
-    console.log(chalk.cyan(`Total Code: ${totalCode}`));
-    if (options.countComments)
-      console.log(chalk.magenta(`Total Comments: ${totalComments}`));
-    console.log(chalk.yellow(`Average Density: ${avgDensity}%`));
-    console.log(chalk.red(`Average Complexity: ${avgComplexity}`));
+    console.log(chalk.bold.green("\n📈 Project Summary"));
+    const summaryTable = new Table({
+      head: [chalk.cyan("Metric"), chalk.cyan("Value")],
+      style: { head: [], border: [] },
+    });
+
+    summaryTable.push(
+      [chalk.white("Total Lines"), chalk.white(totalLines)],
+      [chalk.white("Total Code"), chalk.cyan(totalCode)],
+      [
+        chalk.white("Total Comments"),
+        options.countComments
+          ? chalk.magenta(totalComments)
+          : chalk.gray("off"),
+      ],
+      [chalk.white("Average Density"), chalk.yellow(`${avgDensity}%`)],
+      [chalk.white("Average Complexity"), chalk.red(avgComplexity)]
+    );
+
+    console.log(summaryTable.toString());
   });
 
 program.parse(process.argv);

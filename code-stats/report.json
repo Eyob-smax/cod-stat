@@ -1,0 +1,92 @@
+{
+  "timestamp": "2025-10-27T07:25:54.392Z",
+  "directory": "./",
+  "totals": {
+    "totalLines": 980,
+    "totalComments": 0,
+    "totalCode": 896,
+    "avgDensity": "0.9"
+  },
+  "files": [
+    {
+      "file": "bin\\code-stats.js",
+      "lang": "JavaScript",
+      "lines": 102,
+      "blanks": 10,
+      "comments": 0,
+      "codeLines": 92,
+      "density": "90.2",
+      "complexity": 7
+    },
+    {
+      "file": "lib\\config.js",
+      "lang": "JavaScript",
+      "lines": 27,
+      "blanks": 4,
+      "comments": 0,
+      "codeLines": 23,
+      "density": "85.2",
+      "complexity": 4
+    },
+    {
+      "file": "lib\\fileAnalyzer.js",
+      "lang": "JavaScript",
+      "lines": 205,
+      "blanks": 15,
+      "comments": 0,
+      "codeLines": 190,
+      "density": "92.7",
+      "complexity": 58
+    },
+    {
+      "file": "lib\\languageMap.js",
+      "lang": "JavaScript",
+      "lines": 78,
+      "blanks": 10,
+      "comments": 0,
+      "codeLines": 68,
+      "density": "87.2",
+      "complexity": 0
+    },
+    {
+      "file": "lib\\report.js",
+      "lang": "JavaScript",
+      "lines": 30,
+      "blanks": 4,
+      "comments": 0,
+      "codeLines": 26,
+      "density": "86.7",
+      "complexity": 2
+    },
+    {
+      "file": "package-lock.json",
+      "lang": "JSON",
+      "lines": 375,
+      "blanks": 1,
+      "comments": 0,
+      "codeLines": 374,
+      "density": "99.7",
+      "complexity": 4
+    },
+    {
+      "file": "package.json",
+      "lang": "JSON",
+      "lines": 33,
+      "blanks": 1,
+      "comments": 0,
+      "codeLines": 32,
+      "density": "97.0",
+      "complexity": 0
+    },
+    {
+      "file": "README.md",
+      "lang": "Markdown",
+      "lines": 130,
+      "blanks": 39,
+      "comments": 0,
+      "codeLines": 91,
+      "density": "70.0",
+      "complexity": 7
+    }
+  ]
+}

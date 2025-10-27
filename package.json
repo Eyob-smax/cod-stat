@@ -1,0 +1,32 @@
+{
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/code-stats.js"
+  },
+  "name": "cod-stat",
+  "version": "1.0.0",
+  "description": "CLI tool to count lines of code, comments, and categorize by language.",
+  "type": "module",
+  "bin": {
+    "code-stats": "./bin/code-stats.js"
+  },
+  "keywords": [
+    "cli",
+    "code",
+    "stats",
+    "comments",
+    "analyzer",
+    "typescript",
+    "javascript"
+  ],
+  "author": "Eyob Simachew",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "cli-progress": "^3.12.0",
+    "cli-table3": "^0.6.5",
+    "commander": "^14.0.2",
+    "js-yaml": "^4.1.0",
+    "ora": "^9.0.0"
+  }
+}
